@@ -6,6 +6,7 @@ from urllib.error import HTTPError
 import pandas as pd
 import datetime
 import pymongo 
+import os.path
 
 class MongoSectorPerformance:
 
