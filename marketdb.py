@@ -5,13 +5,16 @@ from bs4 import BeautifulSoup
 from urllib.error import HTTPError
 import pandas as pd
 import datetime
+import pymongo 
 
 class MongoSectorPerformance:
 
-	def __init__(self, clientInstance):
+	def __init__(self):
 		url = 'https://eresearch.fidelity.com/eresearch/goto/markets_sectors/landing.jhtml'
-		backend = MongoCache(connection=clientInstance)
-		try:
+		#backend = MongoCache(connection=clientInstance)
+		creds = open(os.path.dirname(__file__)+'/../credentials.txt')
+		conn_str = str(creds.read())
+		clientInstance = pymongo.MongoClient(conn_str)
 			with requests.Session() as s:
 				page = s.get(url, timeout=5).text
 
@@ -40,3 +43,6 @@ class MongoSectorPerformance:
 
 		date_id = datetime.datetime.now()
 		return {str(date_id):d}
+
+if __name__ == '__main__':
+	MongoSectorPerformance()
