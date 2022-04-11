@@ -15,9 +15,9 @@ class MongoSectorPerformance:
 		creds = open(os.path.dirname(__file__)+'/../credentials.txt')
 		conn_str = str(creds.read())
 		clientInstance = pymongo.MongoClient(conn_str)
-		with requests.Session() as s:
-			page = s.get(url, timeout=5).text
-
+		try:
+			with requests.Session() as s:
+				page = s.get(url, timeout=5).text
 		except HTTPError as error:
 			print(error.code)
 			
